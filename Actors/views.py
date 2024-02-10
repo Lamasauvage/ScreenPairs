@@ -79,8 +79,7 @@ def find_common_movies(actor1_name, actor2_name):
         common_movie_ids = set(actor1_movies.keys()) & set(actor2_movies.keys())
 
         for movie_id in common_movie_ids:
-            movie_info = actor1_movies[movie_id].copy()  # Make a copy to avoid mutating the original
-    # Properly access character names with default value 'N/A' if not found
+            movie_info = actor1_movies[movie_id].copy()
             movie_info['characters'] = {
                 actor1_name: actor1_movies[movie_id].get('character', 'N/A'),
                 actor2_name: actor2_movies[movie_id].get('character', 'N/A'),

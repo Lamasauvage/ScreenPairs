@@ -1,0 +1,53 @@
+<!-- search_movies.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Search</title>
+</head>
+<body>
+<h1>Search for Common Movies</h1>
+<form method="get">
+    <label for="actor1">Actor 1:</label>
+    <input type="text" id="actor1" name="actor1" required>
+    <label for="actor2">Actor 2:</label>
+    <input type="text" id="actor2" name="actor2" required>
+    <button type="submit">Search</button>
+</form>
+
+<!-- Add this at the top of your existing common movies list in search_movies.html -->
+{% if actor1_image or actor2_image %}
+    <div>
+        {% if actor1_image %}
+            <img src="{{ actor1_image }}" alt="{{ actor1_name }}" style="height: 100px;">
+        {% endif %}
+        {% if actor2_image %}
+            <img src="{{ actor2_image }}" alt="{{ actor2_name }}" style="height: 100px;">
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if common_movies %}
+    <h2>Common Movies:</h2>
+    <div>
+        {% for movie in common_movies %}
+            <div>
+                <h3>{{ movie.title }} ({{ movie.release_year }})</h3>
+                {% if movie.poster_path %}
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} poster" style="max-width:200px;">
+                {% endif %}
+                <p>Director(s): {{ movie.directors|join:", " }}</p>
+                {% for actor_name, character_name in movie.characters.items %}
+                    <p>{{ actor_name }} as {{ character_name }}</p>
+                {% endfor %}
+
+
+            </div>
+        {% endfor %}
+    </div>
+{% elif search_attempted %}
+    <p>No common movies found or one of the actors was not specified.</p>
+{% endif %}
+
+</body>
+</html>

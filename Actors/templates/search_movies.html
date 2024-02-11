@@ -1,21 +1,61 @@
+{% load static %}
 <!-- search_movies.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Movie Search</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <h1>Search for Common Movies</h1>
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#actor1-name, #actor2-name").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "/auto_complete/",
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function(data) {
+                        response($.map(data.results, function(item) {
+                            return {
+                                label: item.name,
+                                value: item.name,
+                                image: item.profile_path ? "https://image.tmdb.org/t/p/w45" + item.profile_path : null
+                            };
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function(event, ui) {
+            }
+        }).autocomplete("instance")._renderItem = function(ul, item) {
+            return $("<li>")
+                .append("<div>" + (item.image ? "<img src='" + item.image + "' alt='" + item.label + "' style='height:75px; margin-right:5px;'>" : "") + item.label + "</div>")
+                .appendTo(ul);
+        };
+    });
+
+</script>
+
 <form method="get">
-    <label for="actor1">Actor 1:</label>
-    <input type="text" id="actor1" name="actor1" required>
-    <label for="actor2">Actor 2:</label>
-    <input type="text" id="actor2" name="actor2" required>
+    <label for="actor1-name">Actor 1:</label>
+    <input type="text" id="actor1-name" name="actor1" required>
+    <label for="actor2-name">Actor 2:</label>
+    <input type="text" id="actor2-name" name="actor2" required>
     <button type="submit">Search</button>
 </form>
 
-<!-- Add this at the top of your existing common movies list in search_movies.html -->
 {% if actor1_image or actor2_image %}
     <div>
         {% if actor1_image %}

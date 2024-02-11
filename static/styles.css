@@ -1,0 +1,74 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    color: #333;
+    text-align: center;
+}
+form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+form label {
+    line-height: 36px;
+}
+form input[type="text"] {
+    width: 70%;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+form button {
+    padding: 5px 15px;
+    background-color: #5C6BC0;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+form button:hover {
+    background-color: #3F51B5;
+}
+.movie-list {
+    list-style: none;
+    padding: 0;
+}
+.movie-item {
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.movie-item h3 {
+    margin: 0 0 5px 0;
+}
+.movie-item img {
+    float: left;
+    margin-right: 15px;
+}
+.movie-item p {
+    margin: 5px 0;
+    color: #555;
+}
+.movie-item:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.movie-item .director {
+    font-style: italic;
+}
